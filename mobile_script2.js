@@ -276,7 +276,7 @@ async function sendToLine() {
         exportBtn.disabled = true;
         
         // 發送到後端
-        const response = await fetch('https://johnson3457-github-io.vercel.app/send-order', {
+        const response = await fetch('https://drinkmenu-mobile.vercel.app/send-order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
