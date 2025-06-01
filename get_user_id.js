@@ -18,7 +18,7 @@ const client = new line.Client(config);
 
 // 設定 CORS
 app.use(cors({
-    origin: ['https://johnson3457.github.io', 'http://localhost:3000', 'https://drinkmenu-mobile.vercel.app'],
+    origin: ['https://johnson3457.github.io', 'http://localhost:3000', 'https://johnson3457-github-io.vercel.app'],
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
 }));
