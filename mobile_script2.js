@@ -318,7 +318,12 @@ async function sendToLine() {
 // 清除所有訂單
 function clearAllOrders() {
     if (confirm('確定要清除所有訂單嗎？')) {
-        document.querySelector('#orderTable tbody').innerHTML = '';
-        updateTotal();
+        const tbody = document.querySelector('#orderTable tbody');
+        if (tbody) {
+            tbody.innerHTML = '';
+            updateTotal();
+        } else {
+            console.error('找不到訂單表格');
+        }
     }
 } 
