@@ -289,6 +289,9 @@ async function sendToLine() {
         
         if (result.success) {
             alert('訂單已成功傳送到 Line！');
+            // 清除訂單明細
+            document.querySelector('#orderTable tbody').innerHTML = '';
+            updateTotal();
         } else {
             throw new Error(result.error || '傳送失敗');
         }
