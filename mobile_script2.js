@@ -318,12 +318,14 @@ async function sendToLine() {
 // 清除所有訂單
 function clearAllOrders() {
     if (confirm('確定要清除所有訂單嗎？')) {
+        // 清空表格內容
         const tbody = document.querySelector('#orderTable tbody');
         if (tbody) {
-            tbody.innerHTML = '';
-            updateTotal();
-        } else {
-            console.error('找不到訂單表格');
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+            // 更新總金額
+            document.getElementById('totalAmount').textContent = '0';
         }
     }
 } 
