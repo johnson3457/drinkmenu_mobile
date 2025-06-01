@@ -267,14 +267,15 @@ async function sendToLine() {
     
     orderText += `\n總金額：${document.getElementById('totalAmount').textContent} 元`;
     
+    const exportBtn = document.querySelector('.export-btn');
+    const originalText = exportBtn.textContent;
+    
     try {
         // 顯示載入中
-        const exportBtn = document.querySelector('.export-btn');
-        const originalText = exportBtn.textContent;
         exportBtn.textContent = '傳送中...';
         exportBtn.disabled = true;
         
-        // 發送到後端（請替換成您的後端伺服器網址）
+        // 發送到後端
         const response = await fetch('https://johnson3457-github-io.vercel.app/send-order', {
             method: 'POST',
             headers: {
@@ -285,22 +286,31 @@ async function sendToLine() {
             })
         });
         
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const result = await response.json();
         
         if (result.success) {
-            alert('訂單已成功傳送到 Line！');
             // 清除訂單明細
-            document.querySelector('#orderTable tbody').innerHTML = '';
-            updateTotal();
+            const tbody = document.querySelector('#orderTable tbody');
+            if (tbody) {
+                tbody.innerHTML = '';
+                updateTotal();
+                alert('訂單已成功傳送到 Line！');
+            } else {
+                console.error('找不到訂單表格');
+            }
         } else {
             throw new Error(result.error || '傳送失敗');
         }
     } catch (error) {
+        console.error('傳送錯誤:', error);
         alert('傳送失敗：' + error.message);
     } finally {
         // 恢復按鈕狀態
-        const exportBtn = document.querySelector('.export-btn');
-        exportBtn.textContent = '傳送到 Line';
+        exportBtn.textContent = originalText;
         exportBtn.disabled = false;
     }
 }
